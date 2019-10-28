@@ -1,12 +1,4 @@
-import torch 
-import torch.nn as nn
-
-class Network(nn.Module):
-    def __init__(self):
-        pass
-    
-    def forward(self, x):
-        pass
+from MobileNetV2 import mobilenet_v2
     
 class Model:
     def train(self, X, y):
@@ -16,4 +8,5 @@ class Model:
         pass
     
     def __init__(self):
+        self.net = mobilenet_v2(pretrained=True)
         pass
