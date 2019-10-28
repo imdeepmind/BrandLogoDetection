@@ -1,3 +1,11 @@
+"""
+Created on Mon Oct 28 18:19:37 2019
+
+@author: imdeepmind
+
+@description: A file that generates batch of data for the model
+"""
+
 import pandas as pd
 import cv2
 import numpy as np
@@ -43,12 +51,12 @@ class Generator:
                 images.append(logo)
             
             images = np.array(images)
-            labels = np.array(labels).reshape(self.batch_size, 32)
+            labels = np.array(labels)
             
             assert images.shape == (self.batch_size, 224, 224, 3), 'Invalid image shape'
             assert labels.shape == (self.batch_size, 32), 'Invalid labels shape'
             
-            yield images, labels[0]
+            yield images, labels
     
     def validation_generator(self):
         while True:
@@ -64,12 +72,12 @@ class Generator:
                 images.append(logo)
             
             images = np.array(images)
-            labels = np.array(labels).reshape(self.batch_size, 32)
+            labels = np.array(labels)
             
             assert images.shape == (self.batch_size, 224, 224, 3), 'Invalid image shape'
             assert labels.shape == (self.batch_size, 32), 'Invalid labels shape'
             
-            yield images, labels[0]
+            yield images, labels
     
     def test_generator(self):
         while True:
@@ -85,12 +93,9 @@ class Generator:
                 images.append(logo)
             
             images = np.array(images)
-            labels = np.array(labels).reshape(self.batch_size, 32)
+            labels = np.array(labels)
             
             assert images.shape == (self.batch_size, 224, 224, 3), 'Invalid image shape'
             assert labels.shape == (self.batch_size, 32), 'Invalid labels shape'
             
-            yield images, labels[0]
-    
-gen = Generator(batch_size=2)
-x, y = next(gen.train_generator())
+            yield images, labels
