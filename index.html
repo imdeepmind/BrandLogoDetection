@@ -4,43 +4,56 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="main.css">
+        <script src="https://kit.fontawesome.com/72980e34b3.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap" rel="stylesheet">
         <title>BrandLogoDetection</title>
     </head>
 
     <body>
-        <div class="container">
-            <div class="jumbotron">
-                <h1 class="display-4">Brand Logo Detection</h1>
-                <p class="lead">Brand Logo Detection: A Deep Learning based solution for classifying Brand Logos</p>
-                <hr class="my-4">
-                <p>More description will be added</p>
-                <a class="btn btn-primary btn-lg" href="https://github.com/imdeepmind/BrandLogoDetection"
-                    role="button">Learn more</a>
+        <header>
+            <a href="/">BrandLogo</a>
+        </header>
+
+        <main>
+            <div class="hero">
+                <h1>Welcome to Brand Logo Classifier</h1>
+                <p>Brand Logo Classifier is a online tool that detects Logos present in the image</p>
+                <a href="/#upload">Get Started <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
             </div>
 
-            <form>
-                <div class="input-group">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile04"
-                            aria-describedby="inputGroupFileAddon04">
-                        <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+            <div class="upload" id="upload">
+                <i class="fa fa-cloud-upload main-logo" aria-hidden="true"></i>
+                <h1>Upload images to analyze</h1>
+                <form action="#" method="POST" enctype="multipart/form-data">
+                    <div class="group">
+                        <label for="input">
+                            <div>
+                                <i class="fas fa-image label-logo "></i>
+                            </div>
+                        </label>
+                        <input id="input" type="file" name="image" />
                     </div>
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04">Upload</button>
-                    </div>
-                </div>
-            </form>
 
-            <div class="text-center mt-5">
-                <h1 class="display-4">The model is 65% sure that the image contains Adidas Logo</h1>
+                    <button type="submit">Upload</button>
+                </form>
             </div>
-        </div>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+            <div class="information">
+                <h1>Here is a list of Brands currently supported by the application</h1>
+                <ul>
+                    <li>Adidas</li>
+                    <li>Reebok</li>
+                    <li>Puma</li>
+                </ul>
+            </div>
+        </main>
+
+        <footer>
+            <h1>Hi,</h1>
+            <p>this is a Deep Learning project developed by Abhishek Chatterjee (me). The entire project is open sourced. Click <a href="https://github.com/imdeepmind/BrandLogoDetection">here</a>for the code.</p>
+            <p>Copyright &copy; 2019 Abhishek Chatterjee</p>
+        </footer>
         <script src="script.js"></script>
     </body>
 </html>
