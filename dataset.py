@@ -22,12 +22,12 @@ def split(arr, split_ratio):
 
 def process_image(path, type):
     try:
-        if not os.path.exists('datasets/processd/' + type + '/' + path.split('/')[2]):
-            os.makedirs('datasets/processd/' + type + '/' + path.split('/')[2])
+        if not os.path.exists('datasets/processed/' + type + '/' + path.split('/')[2]):
+            os.makedirs('datasets/processed/' + type + '/' + path.split('/')[2])
             
         img = cv2.imread(path, 1)
         img = cv2.resize(img, (224, 224))
-        cv2.imwrite('datasets/processd/' + type + '/' + path.split('/')[2] + '/' + path.split('/')[3], img)
+        cv2.imwrite('datasets/processed/' + type + '/' + path.split('/')[2] + '/' + path.split('/')[3], img)
     except Exception as ex:
         print(ex)
 
