@@ -3,11 +3,6 @@ import torch.nn as nn
 from torchvision import datasets, transforms, models
 from tqdm import tqdm
 
-import torch
-import torch.nn as nn
-from torchvision import datasets, transforms, models
-from tqdm import tqdm
-
 class BrandClassifier:
     def loadData(self):
         transform_train = transforms.Compose([transforms.Resize((224,224)),
@@ -18,16 +13,16 @@ class BrandClassifier:
                                               transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
         
         transform_val_test = transforms.Compose([transforms.Resize((224,224)),
-                                       transforms.ToTensor(),
-                                       transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+                                                 transforms.ToTensor(),
+                                                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
         training_data = datasets.ImageFolder('{}/{}'.format(self.data, 'train'), transform=transform_train)
         validation_data = datasets.ImageFolder('{}/{}'.format(self.data, 'validation'), transform=transform_val_test)
         testing_data = datasets.ImageFolder('{}/{}'.format(self.data, 'test'), transform=transform_val_test)
         
-        self.training_loader = torch.utils.data.DataLoader(training_data, batch_size=32, shuffle=True)
-        self.validation_loader = torch.utils.data.DataLoader(validation_data, batch_size=32, shuffle=True)
-        self.testing_loader = torch.utils.data.DataLoader(testing_data, batch_size=32, shuffle=False)
+        self.training_loader = torch.utils.data.DataLoader(training_data, batch_size=self.batch_size, shuffle=True)
+        self.validation_loader = torch.utils.data.DataLoader(validation_data, batch_size=self.batch_size, shuffle=True)
+        self.testing_loader = torch.utils.data.DataLoader(testing_data, batch_size=self.batch_size, shuffle=False)
     
     def makeModel(self):
         self.model = models.mobilenet_v2(pretrained=True)
@@ -50,6 +45,7 @@ class BrandClassifier:
         self.losses = []
         
         for e in range(epochs):
+            epoch_losses = 0.0
             for inputs, labels in tqdm((self.training_loader)):
                 inputs = inputs.to(self.device)
                 labels = labels.to(self.device)
@@ -57,21 +53,28 @@ class BrandClassifier:
                 output = self.model(inputs)
                 loss = criterion(output, labels)
                 
-                self.losses.append(loss.item())
+                epoch_losses += loss.item()
                 
                 optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()
+            
+            epoch_loss = epoch_losses/len(self.training_loader.dataset)
+            self.losses.append(epoch_loss)
+                
         
-    def __init__(self, path):
+    def __init__(self, path, batch_size=32):
         self.data = path
         
+        if batch_size > 0:
+            self.batch_size = batch_size
+        else:
+            raise ValueError('Invalid Batch size')
+            
         # Find the best device
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         print('Running the model in ', self.device.type)
-        
-        # Train the model
-        # Test the model
+
 
 clf = BrandClassifier('datasets/processed')
 clf.loadData()
